@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Trending Games Hub - Global Hit Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ff4757 0%, #3742fa 50%, #2f3542 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease-in-out infinite;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(25px);
+            padding: 25px 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            animation: slide 4s infinite;
+        }
+
+        @keyframes slide {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffe66d, #ff8c42);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradient 3s ease-in-out infinite;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes textGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .game-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .game-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 18px 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.1rem;
+            font-weight: 700;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .game-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .game-btn:hover::before {
+            left: 100%;
+        }
+
+        .game-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-btn.active {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border-color: transparent;
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+        }
+
+        .game-container {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(30px);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 30px auto;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: rotate 15s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: 20px;
+            background: #000;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ffe66d, #ff8c42);
+            background-size: 400% 100%;
+            animation: colorBar 3s linear infinite;
+        }
+
+        @keyframes colorBar {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .game-info h3 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .game-info p {
+            line-height: 1.8;
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #4ecdc4;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 700px;
+            font-size: 1.4rem;
+            color: #fff;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255, 255, 255, 0.2);
+            border-top: 6px solid #4ecdc4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 50px;
+            background: rgba(255, 107, 107, 0.15);
+            border: 2px solid rgba(255, 107, 107, 0.4);
+            border-radius: 20px;
+            margin: 30px 0;
+            backdrop-filter: blur(15px);
+        }
+
+        .retry-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.1rem; }
+            .game-frame { height: 600px; }
+            .features { grid-template-columns: 1fr; }
+            .game-selector { grid-template-columns: 1fr; }
+        }
+
+        .hot-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #ff3838, #ff8c42);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>🔥 Trending Games Hub</h1>
+            <p class="subtitle">Experience the world's most popular online games</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="game-selector">
+            <button class="game-btn active" onclick="loadGame('wordle')">
+                <span class="hot-badge">HOT</span>
+                📝 Wordle
+            </button>
+            <button class="game-btn" onclick="loadGame('slither-io')">
+                🐍 Slither.io
+            </button>
+            <button class="game-btn" onclick="loadGame('flappy-bird')">
+                <span class="hot-badge">🔥</span>
+                🐦 Flappy Bird
+            </button>
+            <button class="game-btn" onclick="loadGame('paper-io')">
+                📄 Paper.io
+            </button>
+            <button class="game-btn" onclick="loadGame('krunker-io')">
+                🔫 Krunker.io
+            </button>
+            <button class="game-btn" onclick="loadGame('diep-io')">
+                🎯 Diep.io
+            </button>
+        </div>
+
+        <div class="game-container">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div>Loading epic gaming experience...</div>
+            </div>
+            <iframe 
+                id="gameFrame" 
+                class="game-frame" 
+                src="https://www.nytimes.com/games/wordle/index.html"
+                style="display: none;"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+            <div class="error-message" id="errorMessage" style="display: none;">
+                <h3>🚫 Game temporarily unavailable</h3>
+                <p>This might be due to network issues or server maintenance. Please try:</p>
+                <ul style="text-align: left; margin: 20px 0; padding-left: 30px; line-height: 1.8;">
+                    <li>Refresh the page to reload</li>
+                    <li>Check your internet connection</li>
+                    <li>Try another popular game</li>
+                    <li>Wait a moment and try again</li>
+                </ul>
+                <button class="retry-btn" onclick="retryLoad()">🔄 Retry Loading</button>
+            </div>
+        </div>
+
+        <div class="game-info" id="gameInfo">
+            <h3>🎱 Slope - 3D Ball Rolling Speed Challenge</h3>
+            <p>Slope is an incredibly thrilling 3D ball rolling game! Control the green ball as it speeds down endless slopes, dodging red obstacles and testing your reaction limits. The game gets faster and more challenging as you progress - one mistake and it's game over. Simple controls, extreme challenge, absolutely addictive!</p>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">🌍</span>
+                <div class="feature-title">Global Trending</div>
+                <p>These games have billions of players worldwide and are truly viral phenomena that will keep you hooked</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <div class="feature-title">Thrilling Challenges</div>
+                <p>From easy to extreme difficulty, each level is carefully designed to test your reflexes, strategy, and skills</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎮</span>
+                <div class="feature-title">Instant Play</div>
+                <p>No downloads required! Play directly in your browser on mobile, tablet, or desktop - anytime, anywhere</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🏆</span>
+                <div class="feature-title">Competitive Rankings</div>
+                <p>Compete with players globally, challenge high scores, prove your gaming skills and become a true champion</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>🎯 The ultimate collection of the world's most trending games | Every click brings amazing surprises</p>
+    </div>
+
+    <script>
+        const games = {
+            'wordle': {
+                url: 'https://www.nytimes.com/games/wordle/index.html',
+                title: '📝 Wordle - Daily Word Puzzle Phenomenon',
+                description: 'Wordle is THE viral word game that took the world by storm! Guess the 5-letter word in 6 tries. With over 300 million players worldwide, it\'s the most talked-about puzzle game. Simple rules, addictive gameplay, and social sharing make it a global phenomenon!'
+            },
+            'slither-io': {
+                url: 'https://slither.io/',
+                title: '🐍 Slither.io - Multiplayer Snake Battle',
+                description: 'Slither.io is the modern evolution of the classic Snake game! Control your snake to eat glowing orbs and grow longer while avoiding other snakes. Trap opponents and eat their remains to become the longest snake. Fast-paced multiplayer action that\'s incredibly addictive!'
+            },
+            'flappy-bird': {
+                url: 'https://flappybird.io/',
+                title: '🐦 Flappy Bird - Pixel Bird Flying Challenge',
+                description: 'Flappy Bird, the globally viral casual game! Control the little bird through green pipes by simply tapping the screen to make it fly. Looks simple but extremely difficult, requiring perfect timing. Although the gameplay is simple, it\'s absolutely addictive and will challenge your patience and focus!'
+            },
+            'paper-io': {
+                url: 'https://paper-io.com/',
+                title: '📄 Paper.io - Territory Conquest Game',
+                description: 'Paper.io is an addictive territory conquest game! Draw lines to capture new areas while protecting your base. Be careful not to hit your own trail or get eliminated by other players. Strategy meets quick reflexes in this colorful multiplayer experience!'
+            },
+            'krunker-io': {
+                url: 'https://krunker.io/',
+                title: '🔫 Krunker.io - Fast-Paced FPS Battle',
+                description: 'Krunker.io is a fast-paced, pixelated first-person shooter that runs smoothly in your browser! Choose from different classes, customize your weapons, and battle players from around the world. With its crisp graphics and responsive controls, it\'s one of the best browser FPS games!'
+            },
+            'diep-io': {
+                url: 'https://diep.io/',
+                title: '🎯 Diep.io - Tank Evolution Battle',
+                description: 'Diep.io is an awesome tank battle game! Start as a basic tank and evolve into powerful war machines by shooting geometric shapes and other players. Upgrade your stats, choose different tank classes, and dominate the battlefield. Strategy and skill determine your survival!'
+            }
+        };
+
+        let currentGame = 'wordle';
+        let loadTimeout;
+
+        function loadGame(gameKey) {
+            // 更新按钮状态
+            document.querySelectorAll('.game-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            currentGame = gameKey;
+            const game = games[gameKey];
+            
+            // 显示加载状态
+            document.getElementById('loading').style.display = 'flex';
+            document.getElementById('gameFrame').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+
+            // 更新游戏信息
+            const gameInfo = document.getElementById('gameInfo');
+            gameInfo.innerHTML = `<h3>${game.title}</h3><p>${game.description}</p>`;
+
+            // 加载新游戏
+            const iframe = document.getElementById('gameFrame');
+            iframe.src = game.url;
+
+            // 设置超时检测
+            if (loadTimeout) clearTimeout(loadTimeout);
+            loadTimeout = setTimeout(() => {
+                showError();
+            }, 12000);
+        }
+
+        function showError() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('gameFrame').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+
+        function retryLoad() {
+            loadGame(currentGame);
+        }
+
+        // 监听 iframe 加载完成
+        document.getElementById('gameFrame').addEventListener('load', function() {
+            if (loadTimeout) clearTimeout(loadTimeout);
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            this.style.display = 'block';
+        });
+
+        // 监听 iframe 加载错误
+        document.getElementById('gameFrame').addEventListener('error', function() {
+            showError();
+        });
+
+        // 初始加载
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const iframe = document.getElementById('gameFrame');
+                if (iframe.src) {
+                    iframe.style.display = 'block';
+                    document.getElementById('loading').style.display = 'none';
+                }
+            }, 4000);
+        });
+
+        // 键盘快捷键 (1-6)
+        document.addEventListener('keydown', function(e) {
+            if (e.key >= '1' && e.key <= '6') {
+                e.preventDefault();
+                const gameKeys = Object.keys(games);
+                const index = parseInt(e.key) - 1;
+                if (index < gameKeys.length) {
+                    const buttons = document.querySelectorAll('.game-btn');
+                    if (buttons[index]) {
+                        buttons[index].click();
+                    }
+                }
+            }
+        });
+
+        // 触摸手势支持
+        let touchStartY = 0;
+        let touchStartX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            const touchEndY = e.changedTouches[0].clientY;
+            const touchEndX = e.changedTouches[0].clientX;
+            const diffY = touchStartY - touchEndY;
+            const diffX = touchStartX - touchEndX;
+            
+            // 左右滑动切换游戏
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                const gameKeys = Object.keys(games);
+                const currentIndex = gameKeys.indexOf(currentGame);
+                
+                if (diffX > 0) { // 左滑，下一个游戏
+                    const nextIndex = (currentIndex + 1) % gameKeys.length;
+                    const buttons = document.querySelectorAll('.game-btn');
+                    buttons[nextIndex].click();
+                } else { // 右滑，上一个游戏
+                    const prevIndex = currentIndex === 0 ? gameKeys.length - 1 : currentIndex - 1;
+                    const buttons = document.querySelectorAll('.game-btn');
+                    buttons[prevIndex].click();
+                }
+            }
+        });
+
+        // 添加页面可见性检测，优化性能
+        document.addEventListener('visibilitychange', function() {
+            const iframe = document.getElementById('gameFrame');
+            if (document.hidden) {
+                // 页面隐藏时暂停iframe（如果游戏支持）
+                iframe.style.display = 'none';
+            } else {
+                // 页面显示时恢复iframe
+                iframe.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
